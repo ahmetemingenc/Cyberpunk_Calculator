@@ -1,6 +1,9 @@
 const screen = document.getElementById('screen');
 
 function appendToScreen(value) {
+    if (screen.innerText === 'Error') {
+        clearScreen();
+    }
     screen.innerText += value;
 }
 
