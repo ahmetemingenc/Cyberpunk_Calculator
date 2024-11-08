@@ -1,8 +1,9 @@
-// ekran öğesini HTML'den seçip screen değişkenine atıyoruz
+// ekran öğesini html'den seçip screen değişkenine atıyoruz
 const screen = document.getElementById('screen');
 
 // bu fonksiyon kullanıcıdan gelen veriyi ekrana ekliyor
 function appendToScreen(value) {
+
     // ekranda Hata vs. yazıyorsa, kullanıcı başka bir işlem yapmak istediğinde ekranı temizlemek için if kullanıyoruz
 
     if (screen.innerText === 'Hata') {
@@ -28,12 +29,23 @@ function clearScreen() {
 
 // ekrandaki son karakteri silen fonksiyon, html'deki SİL butonuna bağlı
 function deleteChar() {
-    // ekrandaki metnin son karakterini kesip güncelleyerek siliyoruz.
-    screen.innerText = screen.innerText.slice(0, -1);
+
+    // eğer ekranda belirlenen yazılar yazıyorsa, sonsuz hata döngüsünü engellemek için ekranı tamamen temizliyoruz
+    if (
+        screen.innerText === 'Hata' 
+        || screen.innerText === 'Geleceğe Hoş Geldin!' 
+        || screen.innerText === 'Hayat, Evren ve Her Şeyin Anlamı!'
+    ) {
+        clearScreen();
+    } else {
+        // aksi takdirde, ekrandaki son karakteri siliyoruz
+        screen.innerText = screen.innerText.slice(0, -1);
+    }
 }
 
 // ekrandaki matematiksel ifadeyi değerlendirip sonucu hesaplayan fonksiyon, html'deki = butonuna bağlı
 function calculateResult() {
+
     // girilen değeri alıyoruz
     const input = screen.innerText;
     
@@ -46,6 +58,7 @@ function calculateResult() {
         screen.innerText = 'Geleceğe Hoş Geldin!';
         return;
     }
+
     // kullanıcı 42++ değerini girerse ekranda "Hayat, Evren ve Her Şeyin Anlamı!" yazacak
     if(input ==='42++'){
         screen.innerText = 'Hayat, Evren ve Her Şeyin Anlamı!';
@@ -54,9 +67,11 @@ function calculateResult() {
 
     // girilen matematiksel ifadeyi hesaplamaya çalışıyoruz. Burada try catch bloğu kullanarak hatalı girişlerde "Hata" mesajı gösteriyoruz
     try {
+
         // eval fonksiyonuyla işlemi hesaplayıp sonucu ekrana yazıyoruz
         screen.innerText = eval(input);
     } catch (e) {
+
         // bir hata olursa "Hata" mesajını gösteriyoruz
         screen.innerText = 'Hata';
     }
